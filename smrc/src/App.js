@@ -1,7 +1,7 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import './App.css';
 import Login from './Login/login';
-import Dashboard from './Pages/dashboard';
+import Home from './Pages/Home/home';
 import PrivateRoute from './privateRoute';
 
 const App = () => {
@@ -9,7 +9,8 @@ const App = () => {
     <BrowserRouter>
       <Routes>
         <Route path="/login" element={<Login />} />
-        <Route path="/" element={<PrivateRoute element={<Dashboard />} />} />
+        <Route path="/recaps" element={<PrivateRoute element={<Home />} />} />
+        <Route path="/" element={<Home />} />
       </Routes>
     </BrowserRouter>
   );
