@@ -1,16 +1,21 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import './login.css';
 
-const Login = () => {
+const Login = ({loginType}) => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
-  const [page, setPage] = useState('');
   const navigate = useNavigate();
 
   const handleLogin = async (e) => {
     e.preventDefault();
+
+    if (password.length !== 4) {
+        setError('PIN must be exactly 4 digits');
+        return;
+    }
 
     try {
       const response = await axios.post('http://localhost:5000/api/auth/login', { username, password });
@@ -21,8 +26,20 @@ const Login = () => {
     }
   };
 
+  const validatePassword = (password) => {
+    if (/^\d{0,4}$/.test(password)) {
+        setPassword(password);
+    }
+    setError('');
+  }
+
   const handleRegister = async (e) => {
     e.preventDefault();
+
+    if (password.length !== 4) {
+        setError('PIN must be exactly 4 digits');
+        return;
+    }
 
     try {
       await axios.post('http://localhost:5000/api/auth/register', { username, password });
@@ -33,25 +50,22 @@ const Login = () => {
   };
 
   return (
-    <div>
-        <div>
-            <div onClick={() => setPage('Login')}>Login</div>
-            <div onClick={() => setPage('Register')}>Register</div>
-        </div>
-        { page === 'Login' ? (
+    <div className="login-form">
+        { loginType === 'login' ? (
             <form onSubmit={handleLogin}>
                 <input
                     type="username"
                     value={username}
                     onChange={(e) => setUsername(e.target.value)}
-                    placeholder="username"
+                    placeholder="Username"
                     required
                 />
                 <input
                     type="password"
                     value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                    placeholder="Password"
+                    onChange={(e) => validatePassword(e.target.value)}
+                    placeholder="PIN"
+                    maxLength="4"
                     required
                 />
                 <button type="submit">Login</button>
@@ -63,14 +77,15 @@ const Login = () => {
                     type="username"
                     value={username}
                     onChange={(e) => setUsername(e.target.value)}
-                    placeholder="username"
+                    placeholder="Username"
                     required
                 />
                 <input
                     type="password"
                     value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                    placeholder="Password"
+                    onChange={(e) => validatePassword(e.target.value)}
+                    placeholder="PIN"
+                    maxLength="4"
                     required
                 />
                 <button type="submit">Register</button>

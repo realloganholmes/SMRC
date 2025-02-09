@@ -1,30 +1,59 @@
+import { useEffect, useState } from 'react';
 import './home.css';
-import ReactCurvedText from 'react-curved-text'
+import Login from '../../Login/login';
 
 const Home = () => {
+  const [screenSize, setScreenSize] = useState({
+    width: window.innerWidth,
+    height: window.innerHeight,
+  });
+
+  const [loginType, setLoginType] = useState(null);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setScreenSize({
+        width: window.innerWidth,
+        height: window.innerHeight,
+      });
+
+      const rotationDiv = document.getElementById('rotationDiv');
+      const textDiv = document.getElementById('textDiv');
+      const newRotationSize = (Math.min(window.innerWidth, window.innerHeight) * 0.75) + 'px'
+      const newTextSize = (Math.min(window.innerWidth, window.innerHeight) * 0.35) + 'px'
+      rotationDiv.style.width = newRotationSize;
+      rotationDiv.style.height = newRotationSize;
+      textDiv.style.width = newTextSize;
+      textDiv.style.height = newTextSize;
+    };
+
+    handleResize();
+
+    window.addEventListener('resize', handleResize);
+
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
+
+  function showLoginDiv(newLoginType) {
+    document.getElementById('loginDiv').style.opacity = 1;
+    setLoginType(newLoginType);
+  }
+
   return (
     <div className="home-container">
-      <div className="logo-wrapper">
-        <div className="logo-spinner">
-          <div id="rotationDiv">
-            <ReactCurvedText
-              width={370}
-              height={370}
-              cx={185}
-              cy={185}
-              rx={170}
-              ry={170}
-              text={"Saturday Morning Run Club • Saturday Morning Run Club • "}
-              textProps={{ style: { fontSize: 40.4 } }}
-              textPathProps={{ style: { fill: '#66cda3' } }}
-            />
-          </div>
-          <div className="smrc-text">
-            <div>SM</div>
-            <div>RC</div>
-          </div>
+      <div className="full-login-wrapper">
+        <div id="loginDiv">
+          <Login loginType={loginType}/>
+        </div>
+        <div className="login-buttons">
+          <div className={loginType === "login" ? 'button-selected' : ''} onClick={() => showLoginDiv("login")}>Login</div>
+          <div className={loginType === "register" ? 'button-selected' : ''} onClick={() => showLoginDiv("register")}>Register</div>
         </div>
       </div>
+      <img id="rotationDiv" src="./Assets/smrc-ring.png" />
+      <img id="textDiv" src="./Assets/smrc-text.png" />
     </div>
   );
 };

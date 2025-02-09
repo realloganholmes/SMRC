@@ -1,0 +1,23 @@
+.login-form>form {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    padding: 30px;
+    gap: 10px;
+}
+
+form>input {
+    width: 300px;
+    height: 30px;
+    font-size: 20px;
+    border: 2px solid #113b2d;
+    border-radius: 5px;
+}
+
+form>button {
+    width: 100px;
+    height: 30px;
+    background-color: #9cf7db;
+    border: 2px solid #113b2d;
+}

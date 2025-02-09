@@ -2,64 +2,24 @@
     width: 100vw;
     height: 100vh;
     background: rgb(56,99,160);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: space-evenly;
-}
-
-.logo-spinner {
-    height: 370px;
-    width: 370px;
-    position: relative;
-}
-
-.logo-spinner>div {
-    height: 100%;
-    width: 100%;
-}
-
-.login-buttons {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-}
-
-.login-buttons>div {
-    border: 1px solid black;
-    border-radius: 10px;
-    background-color: white;
-    height: 60px;
-    width: 200px;
-    margin: 20px;
-
+    background: radial-gradient(circle, rgba(56,99,160,1) 0%, rgba(56,99,160,1) 59%, rgba(31,57,94,1) 100%);
+    overflow: hidden;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 1.5em;
-}
-
-.login-buttons>div:hover {
-    cursor: pointer;
-    background-color: lightgrey;
-}
-
-.smrc-text {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    z-index: 2;
     position: relative;
-    line-height: 85px;
-    font-size: 100px;
-    color: #66cda3;
-    font-weight: 500;
 }
 
 #rotationDiv {
-    z-index: 1;
+    animation: rotate 20s linear infinite;
     position: absolute;
+    z-index: 1;
+    border-radius: 40%;
+}
+
+#textDiv {
+    position: absolute;
+    z-index: 2;
 }
 
 @keyframes rotate {
@@ -69,4 +29,62 @@
   100% {
     transform: rotate(360deg);
   }
+}
+
+.login-buttons {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: row;
+    bottom: 15vh;
+    z-index: 3;
+}
+
+.login-buttons>div {
+    color: #111f33;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid #113b2d;
+    background-color: #9cf7db;
+    width: 300px;
+    border-radius: 10px;
+    height: 60px;
+    margin: 5px;
+    max-width: 95vw;
+}
+
+.login-buttons>div:hover {
+    cursor: pointer;
+    background-color: #2ab58a;
+}
+
+@media (max-width: 750px) {
+    .login-buttons {
+        flex-direction: column;
+        bottom: 10vh;
+    }
+}
+
+#loginDiv {
+    max-width: 95vw;
+    border: 2px solid #113b2d;
+    background-color: #2ab58a;
+    border-radius: 10px;
+    opacity: 0;
+    transition: opacity 1s
+}
+
+.full-login-wrapper {
+    position: absolute;
+    z-index: 4;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+}
+
+.button-selected {
+    background-color: #2ab58a !important;
 }
