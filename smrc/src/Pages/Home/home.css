@@ -1,8 +1,7 @@
 .home-container {
     width: 100vw;
     height: 100vh;
-    background: rgb(56,99,160);
-    background: radial-gradient(circle, rgba(56,99,160,1) 0%, rgba(56,99,160,1) 59%, rgba(31,57,94,1) 100%);
+    background-color: var(--background-color);
     overflow: hidden;
     display: flex;
     align-items: center;
@@ -35,18 +34,18 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    flex-direction: row;
+    flex-direction: column;
     bottom: 15vh;
     z-index: 3;
 }
 
 .login-buttons>div {
-    color: #111f33;
+    color: var(--text-color);
     display: flex;
     align-items: center;
     justify-content: center;
-    border: 2px solid #113b2d;
-    background-color: #9cf7db;
+    border: 2px solid var(--border-color);
+    background-color: var(--button-color);
     width: 300px;
     border-radius: 10px;
     height: 60px;
@@ -56,7 +55,8 @@
 
 .login-buttons>div:hover {
     cursor: pointer;
-    background-color: #2ab58a;
+    background-color: var(--button-hover);
+    color: var(--text-hover);
 }
 
 @media (max-width: 750px) {
@@ -67,12 +67,16 @@
 }
 
 #loginDiv {
+    width: 0px;
+    height: 0px;
+    overflow: hidden;
     max-width: 95vw;
-    border: 2px solid #113b2d;
-    background-color: #2ab58a;
+    border: 2px solid var(--border-color);
+    background-color: var(--button-hover);
     border-radius: 10px;
     opacity: 0;
-    transition: opacity 1s
+    visibility: hidden;
+    transition: opacity 1s, width 3s, height 3s
 }
 
 .full-login-wrapper {
@@ -86,5 +90,6 @@
 }
 
 .button-selected {
-    background-color: #2ab58a !important;
+    background-color: var(--button-hover) !important;
+    color: var(--text-active);
 }

@@ -1,30 +1,24 @@
 import { useEffect, useState } from 'react';
 import './home.css';
 import Login from '../../Login/login';
+import { useNavigate } from "react-router-dom";
 
 const Home = () => {
-  const [screenSize, setScreenSize] = useState({
-    width: window.innerWidth,
-    height: window.innerHeight,
-  });
-
+  const navigate = useNavigate();
+  useEffect(() => {
+    if (localStorage.getItem('token')) {
+      navigate('/home');
+    }
+  }, []);
+  
   const [loginType, setLoginType] = useState(null);
 
   useEffect(() => {
     const handleResize = () => {
-      setScreenSize({
-        width: window.innerWidth,
-        height: window.innerHeight,
-      });
-
       const rotationDiv = document.getElementById('rotationDiv');
-      const textDiv = document.getElementById('textDiv');
       const newRotationSize = (Math.min(window.innerWidth, window.innerHeight) * 0.75) + 'px'
-      const newTextSize = (Math.min(window.innerWidth, window.innerHeight) * 0.35) + 'px'
       rotationDiv.style.width = newRotationSize;
       rotationDiv.style.height = newRotationSize;
-      textDiv.style.width = newTextSize;
-      textDiv.style.height = newTextSize;
     };
 
     handleResize();
@@ -38,6 +32,9 @@ const Home = () => {
 
   function showLoginDiv(newLoginType) {
     document.getElementById('loginDiv').style.opacity = 1;
+    document.getElementById('loginDiv').style.visibility = 'visible';
+    document.getElementById('loginDiv').style.width = 'fit-content';
+    document.getElementById('loginDiv').style.height = 'fit-content';
     setLoginType(newLoginType);
   }
 
@@ -53,7 +50,6 @@ const Home = () => {
         </div>
       </div>
       <img id="rotationDiv" src="./Assets/smrc-ring.png" />
-      <img id="textDiv" src="./Assets/smrc-text.png" />
     </div>
   );
 };

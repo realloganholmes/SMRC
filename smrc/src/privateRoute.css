@@ -1,0 +1,45 @@
+.navbar {
+    position: absolute;
+    display: flex;
+    flex-direction: row;
+    width: 100vw;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--navbar-color);
+    gap: 0px;
+    height: 50px;
+}
+
+.navbar>div {
+    color: var(--text-hover);
+    font-size: 25px;
+    padding-left: 25px;
+    padding-right: 25px;
+    height: 100%;
+    display: flex;
+    align-items: center;
+}
+
+.navbar>div:hover:not(.selected) {
+    color: var(--text-hover);
+    background-color: var(--navbar-hover);
+}
+
+.navbar>div:hover {
+    cursor: pointer;
+}
+
+.selected {
+    color: var(--text-active);
+    background-color: var(--navbar-active);
+}
+
+.background {
+    width: 100vw;
+    height: 100vh;
+    background: var(--background-color);
+}
+
+.background>div {
+    padding-top: 50px;
+}
