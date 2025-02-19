@@ -20,7 +20,7 @@ const Login = ({loginType}) => {
     try {
       const response = await axios.post('http://localhost:5000/api/auth/login', { username, password });
       localStorage.setItem('token', response.data.token);
-      navigate('/');
+      navigate('/home');
     } catch (err) {
       setError(err.response.data.message);
     }

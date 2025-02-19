@@ -13,11 +13,11 @@ const App = () => {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/home" element={<PrivateRoute element={<Dashboard />} />} />
-        <Route path="/recaps" element={<PrivateRoute element={<Recaps />} />} />
-        <Route path="/rfg" element={<PrivateRoute element={<RFG />} />} />
-        <Route path="/races" element={<PrivateRoute element={<Races />} />} />
-        <Route path="/coolers" element={<PrivateRoute element={<Coolers />} />} />
+        <Route path="/home" element={<PrivateRoute element={<Dashboard />} elName='home'/>} />
+        <Route path="/recaps" element={<PrivateRoute element={<Recaps />} elName='recaps'/>} />
+        <Route path="/rfg" element={<PrivateRoute element={<RFG />} elName='rfg'/>} />
+        <Route path="/races" element={<PrivateRoute element={<Races />} elName='races'/>} />
+        <Route path="/coolers" element={<PrivateRoute element={<Coolers />} elName='coolers'/>} />
       </Routes>
     </BrowserRouter>
   );
