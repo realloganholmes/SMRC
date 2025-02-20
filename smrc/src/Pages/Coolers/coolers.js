@@ -74,6 +74,7 @@ const Coolers = () => {
 
     // Validate duplicate cooler nominations by making sure no cooler within 6 days either side. If so, they have wrong date or its a duplicate
     // Look into forced select of an existing user
+    // Read nominator name from user account
     return (
         <div className="container">
             <div className="content">

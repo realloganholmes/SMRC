@@ -1,0 +1,149 @@
+.container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.content {
+    width: 90%;
+    max-width: 1000px;
+    color: white;
+    border-radius: 5px;
+}
+
+.header-content {
+    position: sticky;
+    top: 50px;
+    background-color: var(--navbar-color);
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    font-weight: 500;
+}
+
+.header-text {
+    padding: 15px;
+    line-height: 35px;
+    font-size: 35px;
+}
+
+.nominate-button {
+    font-size: 16px;
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background-color: var(--button-color);
+    padding: 7px;
+    border-radius: 3px;
+}
+
+.nominate-button:hover {
+    background-color: var(--button-hover);
+    cursor: pointer;
+}
+
+.body-content {
+    background-color: var(--navbar-hover);
+    color: black;
+    padding: 15px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    color: var(--text-color);
+}
+
+.rfg-content {
+    width: 90%;
+    display: flex;
+    justify-content: space-between;
+    height: 280px;
+}
+
+.rfg-content>div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: end;
+    height: 100%;
+    flex: 1;
+    overflow: hidden;
+}
+
+.rfg-content>div>div {
+    display: flex;
+    align-items: end;
+    justify-content: center;
+    padding-bottom: 10px;
+    font-size: 30px;
+}
+
+.runner-name {
+    font-size: 30px !important;
+}
+
+.rfg-first {
+    width: 100%;
+    height: 200px;
+    background-color: red;
+}
+
+.rfg-second {
+    width: 100%;
+    height: 150px;
+    background-color: red;
+}
+
+.rfg-third {
+    width: 100%;
+    height: 100px;
+    background-color: red;
+}
+
+@media(max-width: 950px) {
+    .header-content {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .header-text {
+        font-size: 18px;
+        line-height: 18px;
+        padding: 8px;
+    }
+
+    .nominate-button {
+        font-size: 10px;
+        padding: 4px;
+    }
+
+    .nominate-button {
+        position: relative;
+        top: 0;
+        left: 0;
+        margin-bottom: 8px;
+    }
+
+    .nominee-title-container {
+        font-size: 18px;
+    }
+
+    .runner-name {
+        font-size: 12px !important;
+    }
+
+    .rfg-content {
+        height: 150px;
+    }
+
+    .rfg-first {
+        height: 100px;
+    }
+
+    .rfg-second {
+        height: 80px;
+    }
+
+    .rfg-third {
+        height: 60px;
+    }
+}
