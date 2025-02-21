@@ -1,10 +1,10 @@
 import { useState } from 'react';
-import './recaps.css';
+import './recaps.scss';
 
 const Recaps = () => {
     const [recaps, setRCP] = useState([
         {
-            racer: 'Logan Holmes',
+            racer: 'Wolverine',
             distance: '5km',
             time: '18:45',
             raceName: 'Helpful Elf 5k',
@@ -16,20 +16,20 @@ const Recaps = () => {
     // Allow word, pdf, or plain text.
     // Search filter by distance, date range, title, racer
     return (
-        <div className="container">
+        <div className="recaps-container">
             <div className="content">
                 <div className="header-content">
                     <div className="header-text">
                         Race Recaps
                     </div>
-                    <div className="nominate-button">
+                    <div className="add-button">
                         + Add Recap
                     </div>
                 </div>
                 <div className="body-content">
                     {recaps.map((recap) => (
-                        <div className="nominee-content">
-                            <div className="nominee-title-container">
+                        <div className="recap-container">
+                            <div className="recap-title-container">
                                 <div>{recap.raceName}</div>
                                 <div>{recap.date}</div>
                             </div>
@@ -39,7 +39,7 @@ const Recaps = () => {
                             <div>
                                 <div>{recap.distance} in {recap.time}</div>
                             </div>
-                            <div className="nominator-comment">
+                            <div className="recap-content">
                                 {recap.content}
                             </div>
                         </div>

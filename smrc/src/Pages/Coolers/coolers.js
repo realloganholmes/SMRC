@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import './coolers.css';
+import './coolers.scss';
 
 const Coolers = () => {
 
@@ -76,7 +76,7 @@ const Coolers = () => {
     // Look into forced select of an existing user
     // Read nominator name from user account
     return (
-        <div className="container">
+        <div className="cooler-container">
             <div className="content">
                 <div className="header-content">
                     <div className="header-text">

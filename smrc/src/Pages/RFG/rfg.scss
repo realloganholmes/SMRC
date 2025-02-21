@@ -1,0 +1,194 @@
+.RFG-container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+
+    .content {
+        width: 90%;
+        max-width: 1000px;
+        color: white;
+        border-radius: 5px;
+    }
+
+    .header-content {
+        position: sticky;
+        top: 50px;
+        background-color: var(--navbar-color);
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        font-weight: 500;
+    }
+
+    .header-text {
+        padding: 15px;
+        line-height: 35px;
+        font-size: 35px;
+    }
+
+    .body-content {
+        background-color: var(--navbar-hover);
+        color: black;
+        padding: 15px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        color: var(--text-color);
+    }
+
+    .rfg-content {
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        height: 280px;
+    }
+
+    .rfg-content>div {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: end;
+        height: 100%;
+        flex: 1;
+        overflow: hidden;
+    }
+
+    .rfg-content>div>div {
+        display: flex;
+        align-items: end;
+        justify-content: center;
+        padding-bottom: 10px;
+        font-size: 30px;
+    }
+
+    .runner-name {
+        font-size: 30px !important;
+    }
+
+    .rfg-first {
+        width: 100%;
+        height: 200px;
+        background-color: var(--navbar-active);
+    }
+
+    .rfg-second {
+        width: 100%;
+        height: 150px;
+        background-color: var(--navbar-active);
+    }
+
+    .rfg-third {
+        width: 100%;
+        height: 100px;
+        background-color: var(--navbar-active);
+    }
+
+    @media(max-width: 950px) {
+        .header-content {
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .header-text {
+            font-size: 18px;
+            line-height: 18px;
+            padding: 8px;
+        }
+
+        .nominate-button {
+            font-size: 10px;
+            padding: 4px;
+        }
+
+        .nominate-button {
+            position: relative;
+            top: 0;
+            left: 0;
+            margin-bottom: 8px;
+        }
+
+        .nominee-title-container {
+            font-size: 18px;
+        }
+
+        .runner-name {
+            font-size: 12px !important;
+        }
+
+        .rfg-content {
+            height: 150px;
+        }
+
+        .rfg-first {
+            height: 100px;
+        }
+
+        .rfg-second {
+            height: 80px;
+        }
+
+        .rfg-third {
+            height: 60px;
+        }
+    }
+
+    .table-container {
+        background-color: var(--navbar-active);
+        margin: 20px;
+        border-radius: 15px;
+        padding: 10px;
+    }
+
+    .outer-table>thead {
+        background-color: #4f1e15;
+    }
+
+    .outer-table {
+        width: 100%;
+        border-collapse: collapse;
+
+        td {
+            padding: 3px;
+            padding-left: 10px;
+        }
+
+        tbody {
+            .outer-tr {
+                background-color: #803528;
+            }
+
+            .outer-tr:hover {
+                cursor: pointer;
+            }
+
+            .outer-tr:nth-of-type(even) {
+                background-color: #692b20;
+            }
+        }
+    }
+
+    .inner-table-container {
+        padding-top: 0px !important;
+        padding-bottom: 10px !important;
+    }
+
+    .inner-table {
+        width: 90%;
+        margin: auto;
+        border-collapse: collapse;
+
+        thead {
+            background-color: var(--background-color);
+        }
+
+        tbody {
+            tr {
+                background-color: var(--navbar-color);
+            }
+
+            tr:nth-of-type(even) {
+                background-color: var(--navbar-hover);
+            }
+        }
+    }
+}
