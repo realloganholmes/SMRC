@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
 import './rfg.scss';
 
+
+// TODO: Points rubrik for reference
+
 const RFG = () => {
     const [rfgData, setRfgData] = useState([
             {

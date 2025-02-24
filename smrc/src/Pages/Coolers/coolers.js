@@ -1,8 +1,8 @@
 import { useState } from 'react';
+import CoolersModal from './coolers-modal.js';
 import './coolers.scss';
 
 const Coolers = () => {
-
     const [coolerNominations, setCN] = useState([
         {
             nominee: 'Brian Jordan',
@@ -82,9 +82,7 @@ const Coolers = () => {
                     <div className="header-text">
                         Cooler Of The Year Nominees
                     </div>
-                    <div className="nominate-button">
-                        + Nominate
-                    </div>
+                    <CoolersModal></CoolersModal>
                 </div>
                 <div className="body-content">
                     {coolerNominations.map((cooler) => (
