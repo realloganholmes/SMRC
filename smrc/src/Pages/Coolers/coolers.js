@@ -1,80 +1,34 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import CoolersModal from './coolers-modal.js';
+import { format } from 'date-fns';
 import './coolers.scss';
 
 const Coolers = () => {
-    const [coolerNominations, setCN] = useState([
-        {
-            nominee: 'Brian Jordan',
-            dateBrought: '1/1/2025',
-            nominatorComment: 'This cooler was super great',
-            nominatorName: 'Logan Holmes'
-        }, {
-            nominee: 'Brian Eggleston',
-            dateBrought: '1/8/2025',
-            nominatorComment: 'Brian always brings a great cooler. This one specifically had all the things I like. Brian brought the cooler back for multiple weeks with all of the leftovers. Truly a great cooler',
-            nominatorName: 'Cindy Richmond'
-        }, {
-            nominee: 'Logan Holmes',
-            dateBrought: '1/15/2025',
-            nominatorComment: '',
-            nominatorName: 'Rob Tagher'
-        }, {
-            nominee: 'Brian Eggleston',
-            dateBrought: '1/8/2025',
-            nominatorComment: 'Brian always brings a great cooler. This one specifically had all the things I like. Brian brought the cooler back for multiple weeks with all of the leftovers. Truly a great cooler',
-            nominatorName: 'Cindy Richmond'
-        }, {
-            nominee: 'Logan Holmes',
-            dateBrought: '1/15/2025',
-            nominatorComment: '',
-            nominatorName: 'Rob Tagher'
-        }, {
-            nominee: 'Brian Eggleston',
-            dateBrought: '1/8/2025',
-            nominatorComment: 'Brian always brings a great cooler. This one specifically had all the things I like. Brian brought the cooler back for multiple weeks with all of the leftovers. Truly a great cooler',
-            nominatorName: 'Cindy Richmond'
-        }, {
-            nominee: 'Logan Holmes',
-            dateBrought: '1/15/2025',
-            nominatorComment: '',
-            nominatorName: 'Rob Tagher'
-        }, {
-            nominee: 'Brian Eggleston',
-            dateBrought: '1/8/2025',
-            nominatorComment: 'Brian always brings a great cooler. This one specifically had all the things I like. Brian brought the cooler back for multiple weeks with all of the leftovers. Truly a great cooler',
-            nominatorName: 'Cindy Richmond'
-        }, {
-            nominee: 'Logan Holmes',
-            dateBrought: '1/15/2025',
-            nominatorComment: '',
-            nominatorName: 'Rob Tagher'
-        }, {
-            nominee: 'Brian Eggleston',
-            dateBrought: '1/8/2025',
-            nominatorComment: 'Brian always brings a great cooler. This one specifically had all the things I like. Brian brought the cooler back for multiple weeks with all of the leftovers. Truly a great cooler',
-            nominatorName: 'Cindy Richmond'
-        }, {
-            nominee: 'Logan Holmes',
-            dateBrought: '1/15/2025',
-            nominatorComment: '',
-            nominatorName: 'Rob Tagher'
-        }, {
-            nominee: 'Brian Eggleston',
-            dateBrought: '1/8/2025',
-            nominatorComment: 'Brian always brings a great cooler. This one specifically had all the things I like. Brian brought the cooler back for multiple weeks with all of the leftovers. Truly a great cooler',
-            nominatorName: 'Cindy Richmond'
-        }, {
-            nominee: 'Logan Holmes',
-            dateBrought: '1/15/2025',
-            nominatorComment: '',
-            nominatorName: 'Rob Tagher'
-        }
-    ]);
+    const [coolerNominations, setCN] = useState([]);
+
+    const loadNominations = async () => {
+        const token = localStorage.getItem('token');
+        const response = await fetch('http://localhost:5000/api/coolers/coolerNominations', {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`,
+            },
+        });
+
+        if (response.ok) {
+            setCN(await response.json());
+        } else {
+            alert('Error fetching nominations: ' + response.error);
+        }            
+    };
+    
+    useEffect(() => {
+        loadNominations();
+    }, []);
 
     // Validate duplicate cooler nominations by making sure no cooler within 6 days either side. If so, they have wrong date or its a duplicate
     // Look into forced select of an existing user
-    // Read nominator name from user account
     return (
         <div className="cooler-container">
             <div className="content">
@@ -82,20 +36,20 @@ const Coolers = () => {
                     <div className="header-text">
                         Cooler Of The Year Nominees
                     </div>
-                    <CoolersModal></CoolersModal>
+                    <CoolersModal reloadNominations={loadNominations}></CoolersModal>
                 </div>
                 <div className="body-content">
-                    {coolerNominations.map((cooler) => (
-                        <div className="nominee-content">
+                    {coolerNominations.map((cooler, index) => (
+                        <div className="nominee-content" key={index}>
                             <div className="nominee-title-container">
                                 <div>{cooler.nominee}</div>
-                                <div>{cooler.dateBrought}</div>
+                                <div>{format(new Date(cooler.date), 'MM/dd/yyyy')}</div>
                             </div>
                             <div className="nominator-comment">
-                                {cooler.nominatorComment}
+                                {cooler.comment}
                             </div>
                             <div className="nominator-name">
-                                Nominated By: {cooler.nominatorName}
+                                Nominated By: {cooler.nominator}
                             </div>
                         </div>
                     ))}
