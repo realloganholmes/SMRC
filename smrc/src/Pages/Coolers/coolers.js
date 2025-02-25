@@ -2,13 +2,14 @@ import { useEffect, useState } from 'react';
 import CoolersModal from './coolers-modal.js';
 import { format } from 'date-fns';
 import './coolers.scss';
+import { apiFetch } from '../../Utilities/apiClient.js';
 
 const Coolers = () => {
     const [coolerNominations, setCN] = useState([]);
 
     const loadNominations = async () => {
         const token = localStorage.getItem('token');
-        const response = await fetch('http://localhost:5000/api/coolers/coolerNominations', {
+        const data = await apiFetch('http://localhost:5000/api/coolers/coolerNominations', {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
@@ -16,19 +17,13 @@ const Coolers = () => {
             },
         });
 
-        if (response.ok) {
-            setCN(await response.json());
-        } else {
-            alert('Error fetching nominations: ' + response.error);
-        }            
+        setCN(data);
     };
     
     useEffect(() => {
         loadNominations();
     }, []);
 
-    // Validate duplicate cooler nominations by making sure no cooler within 6 days either side. If so, they have wrong date or its a duplicate
-    // Look into forced select of an existing user
     return (
         <div className="cooler-container">
             <div className="content">

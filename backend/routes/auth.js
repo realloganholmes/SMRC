@@ -1,6 +1,6 @@
 const express = require('express');
-const User = require('../models/user');
 const jwt = require('jsonwebtoken');
+const User = require('../models/User');
 
 const router = express.Router();
 
@@ -30,7 +30,19 @@ router.post('/login', async (req, res) => {
 
   if (!user.verified) return res.status(400).json({ message: 'Account not yet verified' });
 
-  const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, { expiresIn: '1h' });
+  const token = jwt.sign(
+    {
+      userId: user._id,
+      isAdmin: user.admin,
+      isCoolerAdmin: user.coolerAdmin,
+      isRaceAdmin: user.raceAdmin,
+      isRFGAdmin: user.RFGAdmin,
+      isRecapAdmin: user.recapAdmin,
+      isDashboardAdmin: user.dashboardAdmin
+    },
+    process.env.JWT_SECRET,
+    { expiresIn: '1h' }
+  );
 
   res.json({ token });
 });

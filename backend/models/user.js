@@ -5,6 +5,12 @@ const userSchema = new mongoose.Schema({
   username: { type: String, required: true },
   password: { type: String, required: true },
   verified: { type: Boolean, required: true },
+  admin: { type: Boolean, required: false, default: false },
+  coolerAdmin: { type: Boolean, required: false, default: false },
+  RFGAdmin: { type: Boolean, required: false, default: false },
+  raceAdmin: { type: Boolean, required: false, default: false },
+  dashboardAdmin: { type: Boolean, required: false, default: false },
+  recapAdmin: { type: Boolean, required: false, default: false },
 });
 
 // Hash the password before saving the user

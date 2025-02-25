@@ -4,12 +4,18 @@ import './privateRoute.scss'
 import { IoMdHome } from "react-icons/io";
 import { PiTreasureChestFill } from "react-icons/pi";
 import { FaNewspaper, FaPersonRunning, FaMedal } from "react-icons/fa6";
+import { MdAdminPanelSettings } from "react-icons/md";
+import { AuthProvider, useAuth } from './Utilities/authContext';
 
 const PrivateRoute = ({ element, elName, ...rest }) => {
+  const { user } = useAuth();
+
   const navigate = useNavigate();
-  if (!localStorage.getItem('token')) {
-    navigate('/');
-  }
+  useEffect(() => {
+    if (!localStorage.getItem('token')) {
+      navigate('/');
+    }
+  })
 
   const [navTo, setNavTo] = useState(null);
   useEffect(() => {
@@ -24,6 +30,9 @@ const PrivateRoute = ({ element, elName, ...rest }) => {
         <div className={elName === 'rfg' ? 'selected' : ''} onClick={() => setNavTo('/rfg')}><FaMedal /></div>
         <div className={elName === 'races' ? 'selected' : ''} onClick={() => setNavTo('/races')}><FaPersonRunning /></div>
         <div className={elName === 'coolers' ? 'selected' : ''} onClick={() => setNavTo('/coolers')}><PiTreasureChestFill /></div>
+        { user && user.isAdmin ? 
+          (<div className={elName === 'admin' ? 'selected' : ''} onClick={() => setNavTo('/admin')}><MdAdminPanelSettings /></div>) : ''
+        }
       </div>
       <div className="background">
         <div>
