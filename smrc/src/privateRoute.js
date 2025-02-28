@@ -5,10 +5,13 @@ import { IoMdHome } from "react-icons/io";
 import { PiTreasureChestFill } from "react-icons/pi";
 import { FaNewspaper, FaPersonRunning, FaMedal } from "react-icons/fa6";
 import { MdAdminPanelSettings } from "react-icons/md";
-import { AuthProvider, useAuth } from './Utilities/authContext';
+import { useAuth } from './Utilities/authContext';
+import { Switch } from '@mui/material';
+import { useSlideToggle } from './Utilities/slideToggleContext';
 
 const PrivateRoute = ({ element, elName, ...rest }) => {
   const { user } = useAuth();
+  const { isToggled, toggle } = useSlideToggle();
 
   const navigate = useNavigate();
   useEffect(() => {
@@ -33,6 +36,9 @@ const PrivateRoute = ({ element, elName, ...rest }) => {
         { user && user.isAdmin ? 
           (<div className={elName === 'admin' ? 'selected' : ''} onClick={() => setNavTo('/admin')}><MdAdminPanelSettings /></div>) : ''
         }
+        { user && (user.isAdmin || user.isCoolerAdmin || user.isRaceAdmin || user.isRFGAdmin || user.isRecapAdmin || user.isDashboardAdmin) ?
+          <Switch checked={isToggled} onChange={toggle} />
+        : ''}
       </div>
       <div className="background">
         <div>

@@ -4,6 +4,7 @@ import { LocalizationProvider, DatePicker } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import dayjs from "dayjs";
 import './coolers-modal.scss';
+import { apiFetch } from '../../Utilities/apiClient';
 
 const CoolersModal = ({ reloadNominations }) => {
     const [modalIsOpen, setIsOpen] = useState(false);
@@ -25,14 +26,8 @@ const CoolersModal = ({ reloadNominations }) => {
     const onSubmit = async (e) => {
         e.preventDefault();
 
-        const token = localStorage.getItem('token');
-
-        const response = await fetch('http://localhost:5000/api/coolers/coolerNominate', {
+        await apiFetch('http://localhost:5000/api/coolers/coolerNominate', {
             method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${token}`,
-            },
             body: JSON.stringify({
                 nominee,
                 date,
@@ -40,13 +35,8 @@ const CoolersModal = ({ reloadNominations }) => {
             }),
         });
         
-        const data = await response.json();
-        if (response.ok) {
-            onClose();
-            reloadNominations();
-        } else {
-            alert('Error submitting nomination: ' + data.error);
-        }
+        onClose();
+        reloadNominations();
     }
 
     const getValidSaturdays = (date) => {

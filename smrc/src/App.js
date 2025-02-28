@@ -9,20 +9,23 @@ import Races from "./Pages/Races/races";
 import Coolers from "./Pages/Coolers/coolers";
 import { AuthProvider } from "./Utilities/authContext";
 import Admin from "./Pages/Admin/admin";
+import { SlideToggleProvider } from "./Utilities/slideToggleContext";
 
 const App = () => {
   return (
     <BrowserRouter>
       <AuthProvider>
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/home" element={<PrivateRoute element={<Dashboard />} elName='home'/>} />
-          <Route path="/recaps" element={<PrivateRoute element={<Recaps />} elName='recaps'/>} />
-          <Route path="/rfg" element={<PrivateRoute element={<RFG />} elName='rfg'/>} />
-          <Route path="/races" element={<PrivateRoute element={<Races />} elName='races'/>} />
-          <Route path="/coolers" element={<PrivateRoute element={<Coolers />} elName='coolers'/>} />
-          <Route path="/admin" element={<PrivateRoute element={<Admin />} elName='admin'/>} />
-        </Routes>
+        <SlideToggleProvider>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/home" element={<PrivateRoute element={<Dashboard />} elName='home'/>} />
+            <Route path="/recaps" element={<PrivateRoute element={<Recaps />} elName='recaps'/>} />
+            <Route path="/rfg" element={<PrivateRoute element={<RFG />} elName='rfg'/>} />
+            <Route path="/races" element={<PrivateRoute element={<Races />} elName='races'/>} />
+            <Route path="/coolers" element={<PrivateRoute element={<Coolers />} elName='coolers'/>} />
+            <Route path="/admin" element={<PrivateRoute element={<Admin />} elName='admin'/>} />
+          </Routes>
+        </SlideToggleProvider>
       </AuthProvider>
     </BrowserRouter>
   );

@@ -3,18 +3,18 @@ import CoolersModal from './coolers-modal.js';
 import { format } from 'date-fns';
 import './coolers.scss';
 import { apiFetch } from '../../Utilities/apiClient.js';
+import { useAuth } from '../../Utilities/authContext.js';
+import { useSlideToggle } from '../../Utilities/slideToggleContext.js';
 
 const Coolers = () => {
+    const { user } = useAuth();
+    const { isToggled } = useSlideToggle();
+
     const [coolerNominations, setCN] = useState([]);
 
     const loadNominations = async () => {
-        const token = localStorage.getItem('token');
         const data = await apiFetch('http://localhost:5000/api/coolers/coolerNominations', {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${token}`,
-            },
+            method: 'GET'
         });
 
         setCN(data);
@@ -23,6 +23,15 @@ const Coolers = () => {
     useEffect(() => {
         loadNominations();
     }, []);
+
+    const deleteCooler = async (cooler) => {
+        const coolerId = cooler._id;
+        await apiFetch(`http://localhost:5000/api/coolers-admin/deleteCooler/${coolerId}`, {
+            method: 'DELETE',
+        });
+
+        loadNominations();
+    }
 
     return (
         <div className="cooler-container">
@@ -46,6 +55,11 @@ const Coolers = () => {
                             <div className="nominator-name">
                                 Nominated By: {cooler.nominator}
                             </div>
+                            { (user.isAdmin || user.isCoolerAdmin) && isToggled ?
+                                <div>
+                                    <button onClick={() => deleteCooler(cooler)}>Delete</button>
+                                </div>
+                            : ''}
                         </div>
                     ))}
                 </div>
