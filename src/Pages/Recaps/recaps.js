@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import './recaps.scss';
 
 const Recaps = () => {

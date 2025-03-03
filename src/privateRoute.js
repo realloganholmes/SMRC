@@ -23,7 +23,7 @@ const PrivateRoute = ({ element, elName, ...rest }) => {
   const [navTo, setNavTo] = useState(null);
   useEffect(() => {
     navigate(navTo);
-  }, [navTo])
+  }, [navTo, navigate])
 
   return (
     <div className="private-route-container">
