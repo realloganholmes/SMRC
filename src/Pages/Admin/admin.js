@@ -10,7 +10,7 @@ const Admin = () => {
     const [users, setUsers] = useState([]);
 
     const loadUsers = async () => {
-        const data = await apiFetch('http://localhost:5000/api/admin/users', {
+        const data = await apiFetch('/api/admin/users', {
             method: 'GET'
         });
 
@@ -22,7 +22,7 @@ const Admin = () => {
     const [unverifiedUsers, setUnverifiedUsers] = useState([]);
 
     const loadUnverifiedUsers = async () => {
-        const data = await apiFetch('http://localhost:5000/api/admin/unverified-users', {
+        const data = await apiFetch('/api/admin/unverified-users', {
             method: 'GET'
         });
 
@@ -81,7 +81,7 @@ const Admin = () => {
             ...selectedRoles
         };
 
-        await apiFetch('http://localhost:5000/api/admin/permissions', {
+        await apiFetch('/api/admin/permissions', {
             method: 'PUT',
             body: JSON.stringify({ currentUser: updatedUser }),
         });
@@ -91,7 +91,7 @@ const Admin = () => {
     }
 
     const verifyUser = async (user) => {
-        await apiFetch('http://localhost:5000/api/admin/verifyUser', {
+        await apiFetch('/api/admin/verifyUser', {
             method: 'PUT',
             body: JSON.stringify({ user }),
         });
@@ -102,7 +102,7 @@ const Admin = () => {
 
     const denyUser = async (user) => {
         const userId = user._id;
-        await apiFetch(`http://localhost:5000/api/admin/denyUser/${userId}`, {
+        await apiFetch(`/api/admin/denyUser/${userId}`, {
             method: 'DELETE',
         });
 

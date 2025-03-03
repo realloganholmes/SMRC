@@ -13,7 +13,7 @@ const Coolers = () => {
     const [coolerNominations, setCN] = useState([]);
 
     const loadNominations = async () => {
-        const data = await apiFetch('http://localhost:5000/api/coolers/coolerNominations', {
+        const data = await apiFetch('/api/coolers/coolerNominations', {
             method: 'GET'
         });
 
@@ -26,7 +26,7 @@ const Coolers = () => {
 
     const deleteCooler = async (cooler) => {
         const coolerId = cooler._id;
-        await apiFetch(`http://localhost:5000/api/coolers-admin/deleteCooler/${coolerId}`, {
+        await apiFetch(`/api/coolers-admin/deleteCooler/${coolerId}`, {
             method: 'DELETE',
         });
 

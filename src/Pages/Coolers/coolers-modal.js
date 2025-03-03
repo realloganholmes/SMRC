@@ -26,7 +26,7 @@ const CoolersModal = ({ reloadNominations }) => {
     const onSubmit = async (e) => {
         e.preventDefault();
 
-        await apiFetch('http://localhost:5000/api/coolers/coolerNominate', {
+        await apiFetch('/api/coolers/coolerNominate', {
             method: 'POST',
             body: JSON.stringify({
                 nominee,

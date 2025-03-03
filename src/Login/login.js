@@ -18,7 +18,7 @@ const Login = ({loginType}) => {
     }
 
     try {
-      const response = await axios.post('http://localhost:5000/api/auth/login', { username, password });
+      const response = await axios.post('https://smrc-be-fec2hkfsghffe6e6.eastus2-01.azurewebsites.net/api/auth/login', { username, password });
       localStorage.setItem('token', response.data.token);
       navigate('/home');
     } catch (err) {
@@ -42,7 +42,7 @@ const Login = ({loginType}) => {
     }
 
     try {
-      await axios.post('http://localhost:5000/api/auth/register', { username, password });
+      await axios.post('https://smrc-be-fec2hkfsghffe6e6.eastus2-01.azurewebsites.net/api/auth/register', { username, password });
       navigate('/');
     } catch (err) {
       setError(err.response.data.message);
