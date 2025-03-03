@@ -5,7 +5,7 @@ import './rfg.scss';
 // TODO: Points rubrik for reference
 
 const RFG = () => {
-    const [rfgData, setRfgData] = useState([
+    const rfgData = [
             {
                 place: 1,
                 name: 'Wolverine',
@@ -97,7 +97,7 @@ const RFG = () => {
                     }
                 ]
             }
-        ]);
+        ];
 
     const [openRows, setOpenRows] = useState({});
     const toggleRow = (index) => {

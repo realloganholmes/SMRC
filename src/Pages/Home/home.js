@@ -9,8 +9,8 @@ const Home = () => {
     if (localStorage.getItem('token')) {
       navigate('/home');
     }
-  }, []);
-  
+  }, [navigate]);
+
   const [loginType, setLoginType] = useState(null);
 
   useEffect(() => {
@@ -49,7 +49,7 @@ const Home = () => {
           <div className={loginType === "register" ? 'button-selected' : ''} onClick={() => showLoginDiv("register")}>Register</div>
         </div>
       </div>
-      <img id="rotationDiv" src="./Assets/smrc-ring.png" />
+      <img id="rotationDiv" src="./Assets/smrc-ring.png" alt="SMRC spinning logo"/>
     </div>
   );
 };

@@ -18,7 +18,7 @@ const PrivateRoute = ({ element, elName, ...rest }) => {
     if (!localStorage.getItem('token')) {
       navigate('/');
     }
-  })
+  }, [navigate])
 
   const [navTo, setNavTo] = useState(null);
   useEffect(() => {

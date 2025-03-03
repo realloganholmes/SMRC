@@ -2,7 +2,7 @@ import { useState } from 'react';
 import './recaps.scss';
 
 const Recaps = () => {
-    const [recaps, setRCP] = useState([
+    const recaps = [
         {
             racer: 'Wolverine',
             distance: '5km',
@@ -11,7 +11,7 @@ const Recaps = () => {
             date: '1/1/2025',
             content: 'This is my recap content, please enjoy'
         }
-    ]);
+    ];
 
     // Allow word, pdf, or plain text.
     // Search filter by distance, date range, title, racer
