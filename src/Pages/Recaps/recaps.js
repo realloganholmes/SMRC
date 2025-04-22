@@ -48,7 +48,7 @@ const Recaps = () => {
                 </div>
                 <div className="body-content">
                     {recaps.map((recap) => (
-                        <a href={recap.hostUrl} target='_blank' style={{ textDecoration: 'none', color: 'inherit' }}>
+                        <a href={recap.hostUrl} target='_blank' rel='noreferrer' style={{ textDecoration: 'none', color: 'inherit' }}>
                             <div className="recap-container">
                                 <div className="recap-title-container">
                                     <div>{recap.raceName}</div>

@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import './privateRoute.scss'
 import { IoMdHome } from "react-icons/io";
 import { PiTreasureChestFill } from "react-icons/pi";
-import { FaNewspaper, FaPersonRunning, FaMedal } from "react-icons/fa6";
+import { FaNewspaper } from "react-icons/fa6"; //FaPersonRunning, FaMedal
 import { MdAdminPanelSettings } from "react-icons/md";
 import { useAuth } from './Utilities/authContext';
 import { Switch } from '@mui/material';
