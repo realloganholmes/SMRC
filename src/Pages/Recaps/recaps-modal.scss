@@ -1,0 +1,75 @@
+.recaps-modal-container {
+    .modal-content {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background-color: var(--navbar-color);
+        border: 3px solid var(--text-active);
+        padding: 10px 32px 32px 32px;
+        border-radius: 5px;
+        width: 70%;
+        max-width: 350px;
+    }
+
+    @media(max-width: 500px) {
+        .modal-content>h2 {
+            font-size: 21px;
+        }
+    }
+
+    .form-group {
+        display: flex;
+        flex-direction: column;
+        margin-bottom: 22px;
+    }
+
+    .error-message {
+        background-color: var(--navbar-active);
+        width: fit-content;
+        padding: 3px;
+        font-size: 12px;
+        margin-bottom: 0px;
+    }
+
+    .add-recap-button {
+        font-size: 16px;
+        position: absolute;
+        top: 15px;
+        right: 15px;
+        background-color: var(--navbar-active);
+        padding: 7px;
+        border-radius: 3px;
+    }
+
+    .add-recap-button:hover {
+        background-color: var(--button-hover);
+        cursor: pointer;
+    }
+
+    .date-picker {
+        * {
+            color: white !important;
+            border-color: white !important;
+        }
+    }
+
+    .modal-button {
+        font-size: 16px;
+        background-color: var(--navbar-active);
+        border: none;
+        color: white;
+        margin-right: 10px;
+        padding: 8px;
+        border-radius: 3px;
+    }
+
+    .modal-button:disabled {
+        color: rgba(16, 16, 16, 0.3);
+    }
+
+    .modal-button:enabled:hover {
+        background-color: var(--button-hover);
+        cursor: pointer;
+    }
+}
