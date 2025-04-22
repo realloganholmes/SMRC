@@ -1,18 +1,41 @@
 import './recaps.scss';
+import RecapsModal from './recaps-modal';
+import { apiFetch } from '../../Utilities/apiClient.js';
+import { useEffect, useState } from 'react';
+import { useAuth } from '../../Utilities/authContext.js';
+import { useSlideToggle } from '../../Utilities/slideToggleContext.js';
+import { format } from 'date-fns';
 
 const Recaps = () => {
-    const recaps = [
-        {
-            racer: 'Wolverine',
-            distance: '5km',
-            time: '18:45',
-            raceName: 'Helpful Elf 5k',
-            date: '1/1/2025',
-            content: 'This is my recap content, please enjoy'
-        }
-    ];
+    const { user } = useAuth();
+    const { isToggled } = useSlideToggle();
 
-    // Allow word, pdf, or plain text.
+    const [recaps, setRecaps] = useState([]);
+
+    const loadRecaps = async () => {
+        const data = await apiFetch('/api/recaps/getRecaps', {
+            method: 'GET'
+        });
+
+        setRecaps(data);
+    };
+    
+    useEffect(() => {
+        loadRecaps();
+    }, []);
+
+    const deleteRecap = async (e, recap) => {
+        e.preventDefault();
+        
+        const recapId = recap._id;
+        await apiFetch(`/api/recaps-admin/deleteRecap/${recapId}`, {
+            method: 'DELETE',
+        });
+
+        loadRecaps();
+    }
+
+    // Allow word / pdf
     // Search filter by distance, date range, title, racer
     return (
         <div className="recaps-container">
@@ -21,27 +44,29 @@ const Recaps = () => {
                     <div className="header-text">
                         Race Recaps
                     </div>
-                    <div className="add-button">
-                        + Add Recap
-                    </div>
+                    <RecapsModal reloadRecaps={loadRecaps}></RecapsModal>
                 </div>
                 <div className="body-content">
                     {recaps.map((recap) => (
-                        <div className="recap-container">
-                            <div className="recap-title-container">
-                                <div>{recap.raceName}</div>
-                                <div>{recap.date}</div>
+                        <a href={recap.hostUrl} target='_blank' style={{ textDecoration: 'none', color: 'inherit' }}>
+                            <div className="recap-container">
+                                <div className="recap-title-container">
+                                    <div>{recap.raceName}</div>
+                                    <div>{format(new Date(recap.date), 'MM/dd/yyyy')}</div>
+                                </div>
+                                <div>
+                                    {recap.author}
+                                </div>
+                                <div>
+                                    <div>{recap.distance} in {recap.time}</div>
+                                </div>
+                                { (user.isAdmin || user.isRecapAdmin) && isToggled ?
+                                    <div>
+                                        <button onClick={(e) => deleteRecap(e, recap)}>Delete</button>
+                                    </div>
+                                : ''}
                             </div>
-                            <div>
-                                {recap.racer}
-                            </div>
-                            <div>
-                                <div>{recap.distance} in {recap.time}</div>
-                            </div>
-                            <div className="recap-content">
-                                {recap.content}
-                            </div>
-                        </div>
+                        </a>
                     ))}
                 </div>
             </div>

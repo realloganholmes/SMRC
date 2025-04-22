@@ -1,7 +1,13 @@
-export const apiFetch = async (url, options = {}) => {
+export const apiFetch = async (url, options = {}, formData = false) => {
     const token = localStorage.getItem('token');
 
-    const headers = {
+
+    const headers = formData ? {
+        ...(token ? { Authorization: `Bearer ${token}` } : {}),
+        ...options.headers,
+    }
+    :
+    {
         'Content-Type': 'application/json',
         ...(token ? { Authorization: `Bearer ${token}` } : {}),
         ...options.headers,

@@ -30,8 +30,8 @@ const PrivateRoute = ({ element, elName, ...rest }) => {
       <div className="navbar">
         <div className={elName === 'home' ? 'selected' : ''} onClick={() => setNavTo('/home')}><IoMdHome /></div>
         <div className={elName === 'recaps' ? 'selected' : ''} onClick={() => setNavTo('/recaps')}><FaNewspaper /></div>
-        <div className={elName === 'rfg' ? 'selected' : ''} onClick={() => setNavTo('/rfg')}><FaMedal /></div>
-        <div className={elName === 'races' ? 'selected' : ''} onClick={() => setNavTo('/races')}><FaPersonRunning /></div>
+        {/*<div className={elName === 'rfg' ? 'selected' : ''} onClick={() => setNavTo('/rfg')}><FaMedal /></div>
+        <div className={elName === 'races' ? 'selected' : ''} onClick={() => setNavTo('/races')}><FaPersonRunning /></div>*/}
         <div className={elName === 'coolers' ? 'selected' : ''} onClick={() => setNavTo('/coolers')}><PiTreasureChestFill /></div>
         { user && user.isAdmin ? 
           (<div className={elName === 'admin' ? 'selected' : ''} onClick={() => setNavTo('/admin')}><MdAdminPanelSettings /></div>) : ''
