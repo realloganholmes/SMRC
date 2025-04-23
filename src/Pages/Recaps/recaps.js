@@ -12,11 +12,30 @@ const Recaps = () => {
 
     const [recaps, setRecaps] = useState([]);
 
-    const loadRecaps = async () => {
-        const data = await apiFetch('/api/recaps/getRecaps', {
-            method: 'GET'
-        });
+    const [showFilters, setShowFilters] = useState(false);
+    const [filters, setFilters] = useState({
+        startDate: '',
+        endDate: '',
+        date: '',
+        distance: '',
+        raceName: '',
+        author: '',
+    });
 
+    const loadRecaps = async () => {
+        const queryParams = new URLSearchParams();
+    
+        Object.entries(filters).forEach(([key, value]) => {
+            if (value) queryParams.append(key, value);
+        });
+    
+        const queryString = queryParams.toString();
+        const url = `/api/recaps/getRecaps${queryString ? `?${queryString}` : ''}`;
+    
+        const data = await apiFetch(url, {
+            method: 'GET',
+        });
+    
         setRecaps(data);
     };
     
@@ -35,8 +54,6 @@ const Recaps = () => {
         loadRecaps();
     }
 
-    // Allow word / pdf
-    // Search filter by distance, date range, title, racer
     return (
         <div className="recaps-container">
             <div className="content">
@@ -45,7 +62,40 @@ const Recaps = () => {
                         Race Recaps
                     </div>
                     <RecapsModal reloadRecaps={loadRecaps}></RecapsModal>
+                    <button onClick={() => setShowFilters(!showFilters)}>Filters</button>
                 </div>
+                {showFilters && (
+                    <div style={{
+                        position: 'fixed',
+                        top: 0,
+                        right: 0,
+                        width: '300px',
+                        height: '100%',
+                        backgroundColor: 'white',
+                        borderLeft: '1px solid #ccc',
+                        padding: '1rem',
+                        zIndex: 1000,
+                        overflowY: 'auto',
+                        color: 'black',
+                    }}>
+                        <h3>Filter Recaps</h3>
+                        <label>Date:</label>
+                        <input type="date" value={filters.date} onChange={e => setFilters({ ...filters, date: e.target.value })} />
+                        <label>Start Date:</label>
+                        <input type="date" value={filters.startDate} onChange={e => setFilters({ ...filters, startDate: e.target.value })} />
+                        <label>End Date:</label>
+                        <input type="date" value={filters.endDate} onChange={e => setFilters({ ...filters, endDate: e.target.value })} />
+                        <label>Distance:</label>
+                        <input type="text" value={filters.distance} onChange={e => setFilters({ ...filters, distance: e.target.value })} />
+                        <label>Race Name:</label>
+                        <input type="text" value={filters.raceName} onChange={e => setFilters({ ...filters, raceName: e.target.value })} />
+                        <label>Author:</label>
+                        <input type="text" value={filters.author} onChange={e => setFilters({ ...filters, author: e.target.value })} />
+
+                        <button onClick={() => loadRecaps()}>Search</button>
+                        <button onClick={() => setShowFilters(false)}>Close</button>
+                    </div>
+                )}
                 <div className="body-content">
                     {recaps.map((recap) => (
                         <a href={recap.hostUrl} target='_blank' rel='noreferrer' style={{ textDecoration: 'none', color: 'inherit' }}>
