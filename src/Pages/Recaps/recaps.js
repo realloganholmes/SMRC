@@ -22,7 +22,7 @@ const Recaps = () => {
         author: '',
     });
 
-    const loadRecaps = async () => {
+    const loadRecaps = useCallback(async () => {
         const queryParams = new URLSearchParams();
     
         Object.entries(filters).forEach(([key, value]) => {
@@ -37,11 +37,11 @@ const Recaps = () => {
         });
     
         setRecaps(data);
-    };
+    }, [filters]);
     
     useEffect(() => {
         loadRecaps();
-    }, []);
+    }, [loadRecaps]);
 
     const deleteRecap = async (e, recap) => {
         e.preventDefault();
