@@ -22,7 +22,7 @@ const Recaps = () => {
         author: '',
     });
 
-    const loadRecaps = useCallback(async () => {
+    const loadRecaps = async () => {
         const queryParams = new URLSearchParams();
     
         Object.entries(filters).forEach(([key, value]) => {
@@ -37,11 +37,12 @@ const Recaps = () => {
         });
     
         setRecaps(data);
-    }, [filters]);
+    };
     
     useEffect(() => {
         loadRecaps();
-    }, [loadRecaps]);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
 
     const deleteRecap = async (e, recap) => {
         e.preventDefault();
