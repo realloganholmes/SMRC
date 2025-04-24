@@ -14,7 +14,7 @@ export const apiFetch = async (url, options = {}, formData = false) => {
     };
 
     try {
-        const response = await fetch('https://smrc-be-fec2hkfsghffe6e6.eastus2-01.azurewebsites.net' + url, { ...options, headers });
+        const response = await fetch('http://localhost:8080' + url, { ...options, headers });
 
         if (response.status === 401) {
             localStorage.removeItem('token');
