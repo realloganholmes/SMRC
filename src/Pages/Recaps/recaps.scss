@@ -20,25 +20,31 @@
         font-weight: 500;
     }
 
-    .header-text {
-        padding: 15px;
-        line-height: 35px;
-        font-size: 35px;
+    .header-buttons {
+        display: flex;
+        flex-direction: row;
+        gap: 8px;
     }
 
-    .add-button {
+    .filter-button {
         font-size: 16px;
         position: absolute;
         top: 15px;
-        right: 15px;
+        left: 15px;
         background-color: var(--navbar-active);
         padding: 7px;
         border-radius: 3px;
     }
 
-    .add-button:hover {
+    .filter-button:hover {
         background-color: var(--button-hover);
         cursor: pointer;
+    }
+
+    .header-text {
+        padding: 15px;
+        line-height: 35px;
+        font-size: 35px;
     }
 
     .body-content {
@@ -68,8 +74,23 @@
         font-weight: 500;
     }
 
-    .recap-content {
-        font-size: 14px;
+    .filter-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .filter-options {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        gap: 8px;
+
+        div {
+            display: flex;
+            flex-direction: column;
+        }
     }
 
     @media(max-width: 950px) {
@@ -84,20 +105,20 @@
             padding: 8px;
         }
 
-        .nominate-button {
+        .recap-title-container {
+            font-size: 18px;
+        }
+
+        .filter-button {
             font-size: 10px;
             padding: 4px;
         }
 
-        .nominate-button {
+        .filter-button {
             position: relative;
             top: 0;
             left: 0;
             margin-bottom: 8px;
-        }
-
-        .nominee-title-container {
-            font-size: 18px;
         }
     }
 }
