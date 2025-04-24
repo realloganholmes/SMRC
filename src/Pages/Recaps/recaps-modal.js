@@ -5,6 +5,7 @@ import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import dayjs from "dayjs";
 import './recaps-modal.scss';
 import { apiFetch } from '../../Utilities/apiClient';
+import { RACE_DISTANCES } from './recaps';
 
 const RecapsModal = ({ reloadRecaps }) => {
     const [modalIsOpen, setIsOpen] = useState(false);
@@ -135,7 +136,7 @@ const RecapsModal = ({ reloadRecaps }) => {
                             value={distance}
                             onChange={(e) => setDistance(e.target.value)}
                         >
-                            {["5k", "10k", "Half Marathon", "Marathon", "50k", "50 Mile", "100k", "100 Mile"].map((dist) => (
+                            {RACE_DISTANCES.map((dist) => (
                                 <option key={dist} value={dist}>
                                     {dist}
                                 </option>
