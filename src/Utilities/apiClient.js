@@ -1,6 +1,7 @@
+import { setLoading } from './loading';
+
 export const apiFetch = async (url, options = {}, formData = false) => {
     const token = localStorage.getItem('token');
-
 
     const headers = formData ? {
         ...(token ? { Authorization: `Bearer ${token}` } : {}),
@@ -14,6 +15,8 @@ export const apiFetch = async (url, options = {}, formData = false) => {
     };
 
     try {
+        setLoading(true);
+
         const response = await fetch('http://localhost:8080' + url, { ...options, headers });
 
         if (response.status === 401) {
@@ -27,5 +30,7 @@ export const apiFetch = async (url, options = {}, formData = false) => {
     } catch (error) {
         console.error('API Fetch Error:', error);
         return Promise.reject(error);
+    } finally {
+        setLoading(false);
     }
 };

@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import './login.css';
+import { setLoading } from '../Utilities/loading';
 
 const Login = ({loginType}) => {
   const [username, setUsername] = useState('');
@@ -9,7 +10,7 @@ const Login = ({loginType}) => {
   const [error, setError] = useState('');
   const navigate = useNavigate();
 
-  const handleLogin = async (e) => {
+  const handleLogin = async (e) => {    
     e.preventDefault();
 
     if (password.length !== 4) {
@@ -18,11 +19,15 @@ const Login = ({loginType}) => {
     }
 
     try {
+      setLoading(true);
+      
       const response = await axios.post('https://smrc-be-fec2hkfsghffe6e6.eastus2-01.azurewebsites.net/api/auth/login', { username, password });
       localStorage.setItem('token', response.data.token);
       navigate('/home');
     } catch (err) {
       setError(err.response.data.message);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -42,10 +47,14 @@ const Login = ({loginType}) => {
     }
 
     try {
+      setLoading(true);
+
       await axios.post('https://smrc-be-fec2hkfsghffe6e6.eastus2-01.azurewebsites.net/api/auth/register', { username, password });
       navigate('/');
     } catch (err) {
       setError(err.response.data.message);
+    } finally {
+      setLoading(false);
     }
   };
 
