@@ -21,7 +21,7 @@ const Login = ({loginType}) => {
     try {
       setLoading(true);
       
-      const response = await axios.post('https://smrc-be-fec2hkfsghffe6e6.eastus2-01.azurewebsites.net/api/auth/login', { username, password });
+      const response = await axios.post('http://localhost:8080/api/auth/login', { username, password });
       localStorage.setItem('token', response.data.token);
       navigate('/home');
     } catch (err) {
