@@ -35,7 +35,7 @@ const Account = () => {
     
         try {
             setLoading(true);
-            await axios.post('http://localhost:8080/api/auth-protected/resetPassword', { password }, { headers });
+            await axios.post('https://smrc-be-fec2hkfsghffe6e6.eastus2-01.azurewebsites.net/api/auth-protected/resetPassword', { password }, { headers });
             setUpdate(false);
         } catch (err) {
             setError(err.response.data.message);
