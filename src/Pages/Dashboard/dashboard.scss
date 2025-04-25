@@ -33,8 +33,22 @@
         display: flex;
         flex-direction: column;
         align-items: center;
-        gap: 15px;
         color: var(--text-color);
+    }
+
+    hr {
+        width: 100%;
+        margin: 20px;
+    }
+
+    p {
+        margin-top: 8px;
+        margin-bottom: 8px;
+    }
+
+    a {
+        color: white !important;
+        font-weight: 500;
     }
 
     @media(max-width: 950px) {

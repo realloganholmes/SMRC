@@ -17,17 +17,21 @@ const Recaps = () => {
         startDate: '',
         endDate: '',
         date: '',
-        distance: '',
+        distance: 'Any',
         raceName: '',
         author: '',
     });
 
-    const loadRecaps = async () => {
+    const RACE_DISTANCE_OPTIONS = ['Any'].concat(RACE_DISTANCES);
+
+    const loadRecaps = async (filter = false) => {
         const queryParams = new URLSearchParams();
     
-        Object.entries(filters).forEach(([key, value]) => {
-            if (value) queryParams.append(key, value);
-        });
+        if (filter) {
+            Object.entries(filters).forEach(([key, value]) => {
+                if (value) queryParams.append(key, value === 'Any' ? '' : value);
+            });
+        }
     
         const queryString = queryParams.toString();
         const url = `/api/recaps/getRecaps${queryString ? `?${queryString}` : ''}`;
@@ -86,7 +90,7 @@ const Recaps = () => {
                                 <div>
                                     <label>Distance:</label>
                                     <select type="text" value={filters.distance} onChange={e => setFilters({ ...filters, distance: e.target.value })}>
-                                        {RACE_DISTANCES.map((dist) => (
+                                        {RACE_DISTANCE_OPTIONS.map((dist) => (
                                             <option key={dist} value={dist}>
                                                 {dist}
                                             </option>
@@ -102,7 +106,7 @@ const Recaps = () => {
                                     <input type="text" value={filters.author} onChange={e => setFilters({ ...filters, author: e.target.value })} />
                                 </div>
                             </div>
-                            <button onClick={() => loadRecaps()}>Search</button>
+                            <button onClick={() => loadRecaps(true)}>Search</button>
                         </div>
                     }
                     {recaps.map((recap) => (

@@ -59,7 +59,7 @@ const Account = () => {
                     </div>
                 </div>
                 <div className="body-content">
-                    <h1>{user.username}</h1>
+                    <h1>{user?.username}</h1>
                     { !update && 
                         <div className='button-container'>
                             <button onClick={() => setUpdate(true)}>Update PIN</button>
