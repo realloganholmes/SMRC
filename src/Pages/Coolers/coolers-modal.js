@@ -1,16 +1,19 @@
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 import Modal from "@mui/material/Modal";
 import { LocalizationProvider, DatePicker } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import dayjs from "dayjs";
 import './coolers-modal.scss';
 import { apiFetch } from '../../Utilities/apiClient';
+import { AllUsersContext } from '../../Utilities/allUsersContext.js';
 
 const CoolersModal = ({ reloadNominations }) => {
     const [modalIsOpen, setIsOpen] = useState(false);
     const [nominee, setNominee] = useState("");
     const [date, setDate] = useState(null);
     const [comment, setComment] = useState("");
+
+    const { ALL_USERNAMES } = useContext(AllUsersContext);
 
     const onClose = () => {
         setIsOpen(false);
@@ -64,12 +67,18 @@ const CoolersModal = ({ reloadNominations }) => {
 
                     <div className="form-group">
                         <label htmlFor="nominee">Nominee:</label>
-                        <input
-                            id="nominee"
-                            type="text"
-                            value={nominee}
-                            onChange={(e) => setNominee(e.target.value)}
-                        />
+                        <select type="text" value={nominee} onChange={e => setNominee(e.target.value)}>
+                            {!nominee && (
+                                <option value="" disabled>
+                                    -- Select --
+                                </option>
+                            )}
+                            {ALL_USERNAMES.map((username) => (
+                                <option key={username} value={username}>
+                                    {username}
+                                </option>
+                            ))}
+                        </select>
                         {nominee.trim() === "" && (
                             <p className="error-message">* Nominee is required *</p>
                         )}

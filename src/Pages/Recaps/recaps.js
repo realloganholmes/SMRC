@@ -1,10 +1,11 @@
 import './recaps.scss';
 import RecapsModal from './recaps-modal';
 import { apiFetch } from '../../Utilities/apiClient.js';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useContext } from 'react';
 import { useAuth } from '../../Utilities/authContext.js';
 import { useSlideToggle } from '../../Utilities/slideToggleContext.js';
 import { format } from 'date-fns';
+import { AllUsersContext } from '../../Utilities/allUsersContext.js';
 
 const Recaps = () => {
     const { user } = useAuth();
@@ -19,9 +20,11 @@ const Recaps = () => {
         date: '',
         distance: 'Any',
         raceName: '',
-        author: '',
+        author: 'Any',
     });
 
+    const { ALL_USERNAMES } = useContext(AllUsersContext);
+    const ALL_USERS = ['Any'].concat(ALL_USERNAMES);
     const RACE_DISTANCE_OPTIONS = ['Any'].concat(RACE_DISTANCES);
 
     const loadRecaps = async (filter = false) => {
@@ -103,7 +106,13 @@ const Recaps = () => {
                                 </div>
                                 <div>
                                     <label>Author:</label>
-                                    <input type="text" value={filters.author} onChange={e => setFilters({ ...filters, author: e.target.value })} />
+                                    <select type="text" value={filters.author} onChange={e => setFilters({ ...filters, author: e.target.value })}>
+                                        {ALL_USERS.map((username) => (
+                                            <option key={username} value={username}>
+                                                {username}
+                                            </option>
+                                        ))}
+                                    </select>
                                 </div>
                             </div>
                             <button onClick={() => loadRecaps(true)}>Search</button>

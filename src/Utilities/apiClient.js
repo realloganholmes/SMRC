@@ -1,6 +1,6 @@
 import { setLoading } from './loading';
 
-export const apiFetch = async (url, options = {}, formData = false) => {
+export const apiFetch = async (url, options = {}, formData = false, load=true) => {
     const token = localStorage.getItem('token');
 
     const headers = formData ? {
@@ -15,7 +15,7 @@ export const apiFetch = async (url, options = {}, formData = false) => {
     };
 
     try {
-        setLoading(true);
+        setLoading(load ? true : false);
 
         const response = await fetch('https://smrc-be-fec2hkfsghffe6e6.eastus2-01.azurewebsites.net' + url, { ...options, headers });
 
