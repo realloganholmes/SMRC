@@ -6,6 +6,7 @@ import Dashboard from "./Pages/Dashboard/dashboard";
 import Recaps from "./Pages/Recaps/recaps";
 import RFG from "./Pages/RFG/rfg";
 import Races from "./Pages/Races/races";
+import Account from "./Pages/Account/account";
 import Coolers from "./Pages/Coolers/coolers";
 import { AuthProvider } from "./Utilities/authContext";
 import Admin from "./Pages/Admin/admin";
@@ -34,6 +35,7 @@ const App = () => {
               <Route path="/rfg" element={<PrivateRoute element={<RFG />} elName="rfg" />} />
               <Route path="/races" element={<PrivateRoute element={<Races />} elName="races" />} />
               <Route path="/coolers" element={<PrivateRoute element={<Coolers />} elName="coolers" />} />
+              <Route path="/account" element={<PrivateRoute element={<Account />} elName="account" />} />
               <Route path="/admin" element={<PrivateRoute element={<Admin />} elName="admin" />} />
             </Routes>
           </SlideToggleProvider>
