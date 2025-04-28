@@ -83,6 +83,7 @@ const Account = () => {
                         </div>
                     }
                     {error && <p>{error}</p>}
+                    <p>To delete account and account data, contact Logan Holmes (loganholmes33@gmail.com)</p>
                 </div>
             </div>
         </div>
