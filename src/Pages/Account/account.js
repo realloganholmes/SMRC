@@ -4,6 +4,7 @@ import axios from 'axios';
 import { setLoading } from '../../Utilities/loading';
 import { useAuth } from '../../Utilities/authContext';
 import { useNavigate } from 'react-router-dom';
+import { apiFetch } from '../../Utilities/apiClient';
 
 const Account = () => {
     const [update, setUpdate] = useState(false);
@@ -21,7 +22,7 @@ const Account = () => {
 
     console.log(user);
 
-    const updatePassword = async () => {        
+    const updatePassword = async () => {
         if (password.length !== 4) {
             setError('PIN must be exactly 4 digits');
             return;
@@ -32,7 +33,7 @@ const Account = () => {
             'Content-Type': 'application/json',
             ...(token ? { Authorization: `Bearer ${token}` } : {}),
         };
-    
+
         try {
             setLoading(true);
             await axios.post('https://smrc-be-fec2hkfsghffe6e6.eastus2-01.azurewebsites.net/api/auth-protected/resetPassword', { password }, { headers });
@@ -50,6 +51,12 @@ const Account = () => {
         navigate('/')
     }
 
+    const deleteAccount = async () => {
+        await apiFetch(`/api/auth-protected/deleteUser`, {
+            method: 'DELETE',
+        });
+    }
+
     return (
         <div className="account-container">
             <div className="content">
@@ -60,13 +67,14 @@ const Account = () => {
                 </div>
                 <div className="body-content">
                     <h1>{user?.username}</h1>
-                    { !update && 
+                    {!update &&
                         <div className='button-container'>
                             <button onClick={() => setUpdate(true)}>Update PIN</button>
                             <button onClick={() => logOut()}>Logout</button>
+                            <button onClick={() => deleteAccount()}>Delete Account</button>
                         </div>
                     }
-                    { update &&
+                    {update &&
                         <div>
                             <input
                                 type="password"
