@@ -6,6 +6,7 @@ import { useAuth } from '../../Utilities/authContext.js';
 import { useSlideToggle } from '../../Utilities/slideToggleContext.js';
 import { format } from 'date-fns';
 import { AllUsersContext } from '../../Utilities/allUsersContext.js';
+import { RACE_DISTANCES } from '../../Utilities/values.js';
 
 const Recaps = () => {
     const { user } = useAuth();
@@ -146,5 +147,3 @@ const Recaps = () => {
 }
 
 export default Recaps;
-
-export const RACE_DISTANCES = ["5k", "10k", "Half Marathon", "Marathon", "50k", "50 Mile", "100k", "100 Mile"]

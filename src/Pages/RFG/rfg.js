@@ -1,103 +1,40 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './rfg.scss';
-
-
-// TODO: Points rubrik for reference
+import { apiFetch } from '../../Utilities/apiClient.js';
+import { useAuth } from '../../Utilities/authContext.js';
+import { useSlideToggle } from '../../Utilities/slideToggleContext.js';
+import RFGModal from './rfg-modal';
+import { FaTrash } from 'react-icons/fa6';
 
 const RFG = () => {
-    const rfgData = [
-            {
-                place: 1,
-                name: 'Wolverine',
-                points: 35,
-                races: [
-                    {
-                        name: 'race1',
-                        date: '01/01/2025',
-                        distance: '5K',
-                        time: '18:35',
-                        pr: true,
-                        points: 10
-                    },
-                    {
-                        name: 'race2',
-                        date: '01/08/2025',
-                        distance: '5K',
-                        time: '18:50',
-                        pr: false,
-                        points: 5
-                    },
-                    {
-                        name: 'race3',
-                        date: '01/15/2025',
-                        distance: 'Marathon',
-                        time: '3:00:00',
-                        pr: true,
-                        points: 20
-                    }
-                ]
-            },
-            {
-                place: 2,
-                name: 'Eggs',
-                points: 20,
-                races: [
-                    {
-                        name: 'race3',
-                        date: '01/15/2025',
-                        distance: 'Marathon',
-                        time: '3:00:00',
-                        pr: true,
-                        points: 20
-                    }
-                ]
-            },
-            {
-                place: 3,
-                name: 'Joe The Show',
-                points: 15,
-                races: [
-                    {
-                        name: 'race4',
-                        date: '01/01/2025',
-                        distance: '10K',
-                        time: '40:00',
-                        pr: true,
-                        points: 15
-                    }
-                ]
-            },
-            {
-                place: 4,
-                name: 'CRich',
-                points: 10,
-                races: [
-                    {
-                        name: 'race1',
-                        date: '01/01/2025',
-                        distance: '5K',
-                        time: '20:00',
-                        pr: true,
-                        points: 10
-                    }
-                ]
-            },
-            {
-                place: 5,
-                name: 'MDub',
-                points: 5,
-                races: [
-                    {
-                        name: 'race1',
-                        date: '01/01/2025',
-                        distance: '5K',
-                        time: '20:00',
-                        pr: false,
-                        points: 5
-                    }
-                ]
-            }
-        ];
+    const { user } = useAuth();
+    const { isToggled } = useSlideToggle();
+
+    const [rfg, setRFG] = useState([]);
+
+    const loadRFG = async () => {    
+        const data = await apiFetch(`/api/rfg/getStandings`, {
+            method: 'GET',
+        });
+    
+        setRFG(data);
+    };
+    
+    useEffect(() => {
+        loadRFG();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
+
+    const deleteRFG = async (e, rfg) => {
+        e.preventDefault();
+        
+        const rfgId = rfg.id;
+        await apiFetch(`/api/rfg-admin/deleteRFG/${rfgId}`, {
+            method: 'DELETE',
+        });
+
+        loadRFG();
+    }
 
     const [openRows, setOpenRows] = useState({});
     const toggleRow = (index) => {
@@ -107,7 +44,6 @@ const RFG = () => {
         }));
     };
     
-
     return (
         <div className="RFG-container">
             <div className="content">
@@ -115,19 +51,24 @@ const RFG = () => {
                     <div className="header-text">
                         RFG Standings
                     </div>
+                    { (user?.isAdmin || user?.isRFGAdmin) && isToggled ?
+                        <div className="header-buttons">
+                            <RFGModal reloadRFG={loadRFG}></RFGModal>
+                        </div>
+                    : ''}
                 </div>
                 <div className="body-content">
                     <div className="rfg-content">
                         <div>
-                            <div className="runner-name">Eggs</div>
+                            <div className="runner-name">{rfg[1]?.racer ?? ""}</div>
                             <div className="rfg-second">2</div>
                         </div>
                         <div>
-                            <div className="runner-name">Wolverine</div>
+                            <div className="runner-name">{rfg[0]?.racer ?? ""}</div>
                             <div className="rfg-first">1</div>
                         </div>
                         <div>
-                            <div className="runner-name">Joe The Show</div>
+                            <div className="runner-name">{rfg[2]?.racer ?? ""}</div>
                             <div className="rfg-third">3</div>
                         </div>
                     </div>
@@ -141,11 +82,11 @@ const RFG = () => {
                                 </tr>
                             </thead>
                             <tbody>
-                                {rfgData.map((racer, index) => (
+                                {rfg.map((racer, index) => (
                                     <React.Fragment key={index}>
                                         <tr className="outer-tr" onClick={() => toggleRow(index)}>
                                             <td>{racer.place}</td>
-                                            <td>{racer.name}</td>
+                                            <td>{racer.racer}</td>
                                             <td>{racer.points}</td>
                                         </tr>
                                         {openRows[index] && (
@@ -160,17 +101,25 @@ const RFG = () => {
                                                                 <td>Time</td>
                                                                 <td>PR</td>
                                                                 <td>Points</td>
+                                                                { (user.isAdmin || user.isRFGAdmin) && isToggled ?
+                                                                    <td></td>
+                                                                : ''}
                                                             </tr>
                                                         </thead>
                                                         <tbody>
                                                             {racer.races.map((race) => (
                                                                 <tr>
-                                                                    <td>{race.name}</td>
-                                                                    <td>{race.date}</td>
+                                                                    <td>{race.race}</td>
+                                                                    <td>{new Date(race.date).toLocaleDateString()}</td>
                                                                     <td>{race.distance}</td>
                                                                     <td>{race.time}</td>
                                                                     <td>{race.pr ? "Y" : "N"}</td>
                                                                     <td>{race.points}</td>
+                                                                    { (user.isAdmin || user.isRFGAdmin) && isToggled ?
+                                                                        <td>
+                                                                            <button className="delete-button" onClick={(e) => deleteRFG(e, race)}><FaTrash /></button>
+                                                                        </td>
+                                                                    : ''}
                                                                 </tr>
                                                             ))}
                                                         </tbody>

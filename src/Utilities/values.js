@@ -1,0 +1,1 @@
+export const RACE_DISTANCES = ["5k", "10k", "Half Marathon", "Marathon", "50k", "50 Mile", "100k", "100 Mile"]
