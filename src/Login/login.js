@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import './login.css';
 import { setLoading } from '../Utilities/loading';
 
-const Login = ({loginType}) => {
+const Login = ({loginType, setLoginType}) => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
@@ -51,6 +51,7 @@ const Login = ({loginType}) => {
 
       await axios.post('https://smrc-be-fec2hkfsghffe6e6.eastus2-01.azurewebsites.net/api/auth/register', { username, password });
       navigate('/');
+      setLoginType("login");
     } catch (err) {
       setError(err.response.data.message);
     } finally {

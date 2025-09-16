@@ -42,7 +42,7 @@ const Home = () => {
     <div className="home-container">
       <div className="full-login-wrapper">
         <div id="loginDiv">
-          <Login loginType={loginType}/>
+          <Login loginType={loginType} setLoginType={setLoginType}/>
         </div>
         <div className="login-buttons">
           <div className={loginType === "login" ? 'button-selected' : ''} onClick={() => showLoginDiv("login")}>Login</div>

@@ -168,13 +168,12 @@
     }
 
     .inner-table-container {
-        padding-top: 0px !important;
+        padding: 0 !important;
         padding-bottom: 10px !important;
     }
 
     .inner-table {
-        width: 90%;
-        margin: auto;
+        width: 100%;
         border-collapse: collapse;
 
         thead {
@@ -189,6 +188,25 @@
             tr:nth-of-type(even) {
                 background-color: var(--navbar-hover);
             }
+        }
+    }
+
+    @media(max-width: 600px) {
+        .table-container {
+            margin: 0;
+            margin-top: 20px;
+        }
+
+        .inner-table {
+            font-size: 9px;
+        }
+
+        .rfg-second {
+            height: 70px;
+        }
+
+        .rfg-third {
+            height: 55px;
         }
     }
 }
