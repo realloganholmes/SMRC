@@ -18,6 +18,39 @@
         flex-direction: row;
         justify-content: center;
         font-weight: 500;
+
+        .convert-recaps-button {
+            font-size: 16px;
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            background-color: var(--navbar-active);
+            padding: 7px;
+            border-radius: 3px;
+        }
+
+        .convert-recaps-button:hover {
+            background-color: var(--button-hover);
+            cursor: pointer;
+        }
+
+        @media(max-width: 950px) {
+            .convert-recaps-button {
+                font-size: 10px;
+                padding: 4px;
+            }
+
+            .convert-recaps-button {
+                position: relative;
+                top: 0;
+                left: 0;
+                margin-bottom: 8px;
+            }
+
+            .header-button-convert {
+                order: 1;
+            }
+        }
     }
 
     .header-text {
