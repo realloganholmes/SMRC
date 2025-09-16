@@ -74,7 +74,7 @@ const RFG = () => {
                 </div>
                 <div className="body-content">
                     {convertRecaps ?
-                        <ConvertRecaps></ConvertRecaps>
+                        <ConvertRecaps reloadRFG={loadRFG}></ConvertRecaps>
                         : ''}
                     <div className="rfg-content">
                         <div>
