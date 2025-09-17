@@ -118,6 +118,7 @@ const RFG = () => {
                                                                 <td>Distance</td>
                                                                 <td>Time</td>
                                                                 <td>PR</td>
+                                                                <td>1/AG PR</td>
                                                                 <td>Points</td>
                                                                 {(user.isAdmin || user.isRFGAdmin) && isToggled ?
                                                                     <td></td>
@@ -132,6 +133,7 @@ const RFG = () => {
                                                                     <td>{race.distance}</td>
                                                                     <td>{race.time}</td>
                                                                     <td>{race.pr ? "Y" : "N"}</td>
+                                                                    <td>{race.apr ? "Y" : "N"}</td>
                                                                     <td>{race.points}</td>
                                                                     {(user.isAdmin || user.isRFGAdmin) && isToggled ?
                                                                         <td>

@@ -17,6 +17,7 @@ const RFGModal = ({ reloadRFG }) => {
     const [seconds, setSeconds] = useState("00");
     const [distance, setDistance] = useState("5k");
     const [pr, setPR] = useState(false);
+    const [apr, setAPR] = useState(false);
     const [racer, setRacer] = useState("");
 
     const onClose = () => {
@@ -28,6 +29,7 @@ const RFGModal = ({ reloadRFG }) => {
         setSeconds("00");
         setDistance("5k");
         setPR(false);
+        setAPR(false);
         setRacer("");
     }
 
@@ -57,14 +59,15 @@ const RFGModal = ({ reloadRFG }) => {
                 time: getTimeString(),
                 distance,
                 pr,
+                apr,
             }),
         });
-        
+
         onClose();
         reloadRFG();
     }
 
-    const getValidDates = (date) => {     
+    const getValidDates = (date) => {
         return !date.isAfter(dayjs(), "day");
     };
 
@@ -89,7 +92,7 @@ const RFGModal = ({ reloadRFG }) => {
                 open={modalIsOpen}
                 onClose={onClose}
                 disablePortal
-                >
+            >
                 <div className="modal-content">
                     <h2>Upload Result</h2>
 
@@ -184,7 +187,7 @@ const RFGModal = ({ reloadRFG }) => {
                             <p className="error-message">* Racer is required *</p>
                         )}
                     </div>
-                    
+
                     <div className="form-group">
                         <label htmlFor="pr">PR?</label>
                         <input
@@ -196,8 +199,19 @@ const RFGModal = ({ reloadRFG }) => {
                         />
                     </div>
 
-                    <button 
-                        className="modal-button" 
+                    <div className="form-group">
+                        <label htmlFor="apr">First/AG PR?</label>
+                        <input
+                            className="apr-checkbox"
+                            id="apr"
+                            type="checkbox"
+                            checked={apr}
+                            onChange={(e) => setAPR(e.target.checked)}
+                        />
+                    </div>
+
+                    <button
+                        className="modal-button"
                         disabled={!isFormValid}
                         onClick={onSubmit}
                     >
