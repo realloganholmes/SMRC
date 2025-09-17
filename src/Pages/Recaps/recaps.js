@@ -7,6 +7,7 @@ import { useSlideToggle } from '../../Utilities/slideToggleContext.js';
 import { format } from 'date-fns';
 import { AllUsersContext } from '../../Utilities/allUsersContext.js';
 import { RACE_DISTANCES } from '../../Utilities/values.js';
+import { Checkbox } from '@mui/material';
 
 const Recaps = () => {
     const { user } = useAuth();
@@ -22,6 +23,7 @@ const Recaps = () => {
         distance: 'Any',
         raceName: '',
         author: 'Any',
+        nominated: false,
     });
 
     const { ALL_USERNAMES } = useContext(AllUsersContext);
@@ -30,23 +32,23 @@ const Recaps = () => {
 
     const loadRecaps = async (filter = false) => {
         const queryParams = new URLSearchParams();
-    
+
         if (filter) {
             Object.entries(filters).forEach(([key, value]) => {
                 if (value) queryParams.append(key, value === 'Any' ? '' : value);
             });
         }
-    
+
         const queryString = queryParams.toString();
         const url = `/api/recaps/getRecaps${queryString ? `?${queryString}` : ''}`;
-    
+
         const data = await apiFetch(url, {
             method: 'GET',
         });
-    
+
         setRecaps(data);
     };
-    
+
     useEffect(() => {
         loadRecaps();
         // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -54,10 +56,22 @@ const Recaps = () => {
 
     const deleteRecap = async (e, recap) => {
         e.preventDefault();
-        
+
         const recapId = recap._id;
         await apiFetch(`/api/recaps-admin/deleteRecap/${recapId}`, {
             method: 'DELETE',
+        });
+
+        loadRecaps();
+    }
+
+    const nominateRecap = async (e, recap) => {
+        e.preventDefault();
+
+        const recapId = recap._id;
+        await apiFetch(`/api/recaps/recapNominated`, {
+            method: 'POST',
+            body: JSON.stringify({ recapId })
         });
 
         loadRecaps();
@@ -76,7 +90,7 @@ const Recaps = () => {
                     </div>
                 </div>
                 <div className="body-content">
-                    { showFilters &&
+                    {showFilters &&
                         <div className="filter-container">
                             <div className="filter-options">
                                 <div>
@@ -115,6 +129,16 @@ const Recaps = () => {
                                         ))}
                                     </select>
                                 </div>
+                                <div>
+                                    <label>Nominated:</label>
+                                    <input
+                                        className="apr-checkbox"
+                                        id="apr"
+                                        type="checkbox"
+                                        checked={filters.nominated}
+                                        onChange={e => setFilters({ ...filters, nominated: e.target.checked })}
+                                    />
+                                </div>
                             </div>
                             <button onClick={() => loadRecaps(true)}>Search</button>
                         </div>
@@ -129,14 +153,19 @@ const Recaps = () => {
                                 <div>
                                     {recap.author}
                                 </div>
-                                <div>
+                                <div className="recap-bottom-line">
                                     <div>{recap.distance} in {recap.time}</div>
+                                    {!recap.nominated ?
+                                        <div className="nominate-button" onClick={(e) => nominateRecap(e, recap)}>Nominate</div>
+                                        :
+                                        <div>Nominated by {recap.nominator}</div>
+                                    }
                                 </div>
-                                { (user.isAdmin || user.isRecapAdmin) && isToggled ?
+                                {(user.isAdmin || user.isRecapAdmin) && isToggled ?
                                     <div>
                                         <button onClick={(e) => deleteRecap(e, recap)}>Delete</button>
                                     </div>
-                                : ''}
+                                    : ''}
                             </div>
                         </a>
                     ))}
