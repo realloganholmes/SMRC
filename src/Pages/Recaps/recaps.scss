@@ -93,6 +93,26 @@
         }
     }
 
+    .recap-bottom-line {
+        display: flex;
+        flex-direction: row;
+        width: 100%;
+        justify-content: space-between;
+    }
+
+    .nominate-button {
+        font-size: 16px;
+        color: black;
+        background-color: var(--text-hover);
+        padding: 7px;
+        border-radius: 3px;
+    }
+
+    .nominate-button:hover {
+        background-color: var(--text-color);
+        cursor: pointer;
+    }
+
     @media(max-width: 950px) {
         .header-content {
             flex-direction: column;
