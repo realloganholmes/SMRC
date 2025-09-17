@@ -17,6 +17,7 @@ const RFGModalConvert = ({ isOpen, setIsOpen, handleConversion, _date, _race, _t
     const [seconds, setSeconds] = useState(_time ? _time.split(":")[2] : "00");
     const [distance, setDistance] = useState(_distance ? _distance : "5k");
     const [pr, setPR] = useState(false);
+    const [apr, setAPR] = useState(false);
     const [racer, setRacer] = useState(_racer ? _racer : "");
 
     const onClose = () => {
@@ -45,6 +46,7 @@ const RFGModalConvert = ({ isOpen, setIsOpen, handleConversion, _date, _race, _t
                 time: getTimeString(),
                 distance,
                 pr,
+                apr,
             }),
         });
 
@@ -178,6 +180,17 @@ const RFGModalConvert = ({ isOpen, setIsOpen, handleConversion, _date, _race, _t
                             type="checkbox"
                             checked={pr}
                             onChange={(e) => setPR(e.target.checked)}
+                        />
+                    </div>
+
+                    <div className="form-group">
+                        <label htmlFor="apr">First/AG PR?</label>
+                        <input
+                            className="apr-checkbox"
+                            id="apr"
+                            type="checkbox"
+                            checked={apr}
+                            onChange={(e) => setAPR(e.target.checked)}
                         />
                     </div>
 
