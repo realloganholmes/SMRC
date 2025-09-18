@@ -7,7 +7,6 @@ import { useSlideToggle } from '../../Utilities/slideToggleContext.js';
 import { format } from 'date-fns';
 import { AllUsersContext } from '../../Utilities/allUsersContext.js';
 import { RACE_DISTANCES } from '../../Utilities/values.js';
-import { Checkbox } from '@mui/material';
 
 const Recaps = () => {
     const { user } = useAuth();
